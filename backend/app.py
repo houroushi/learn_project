@@ -1,16 +1,27 @@
-# This is a sample Python script.
+"""
+Основное Flask приложение для API учета товаров
+"""
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from flask import Flask, jsonify
+from flask_cors import CORS
+import os
 
+# Создаем Flask приложение
+app = Flask(__name__)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Включаем CORS для работы с фронендом
+CORS(app)
 
-
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+# Основной маршрут
+@app.route('/')
+def home():
+    """Главная страница API"""
+    return jsonify({
+        'message': 'API системы учета товаров',
+        'version': '1.0.0',
+        'endpoints': '1.0.0',
+        'endpoints': {
+            'GET /': 'Информация об API',
+            'GET /health': 'Проверка состояния сервера'
+        }
+    })
