@@ -1,16 +1,47 @@
-# This is a sample Python script.
+"""
+Основное Flask приложение для API учета товара
+"""
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from flask import Flask, jsonify
+from flask_cors import CORS
+import os
 
+# Создаем Flask приложение
+app = Flask(__name__)
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Включаем CORS для работы с фронендом
+CORS(app)
 
+# Основной маршрут
+@app.route('/')
+def home():
+    """Главная страница API"""
+    return jsonify({
+        'message': 'API системы учета товаров',
+        'version': '1.0.0',
+        'endpoints': {
+            'GET /': 'Информация об API',
+            'GET /health': 'Проверка состояния сервера'
+        }
+    })
 
-# Press the green button in the gutter to run the script.
+# Маршрут для проверки состояния
+@app.route('/health')
+def health_check():
+    """Проверка работоспособности сервера"""
+    return jsonify({'status': 'ok'}), 200
+
+# Запуск приложения
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    # Создаем папку для данных, если её нет
+    if not os.path.exists('data'):
+        os.makedirs('data')
+        print("Создана папка 'data'")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    print("=" * 40)
+    print("Сервер запущен")
+    print("API доступен по адресу: http://localhost:5000")
+    print("=" * 40)
+
+    #Запускаем сервер
+    app.run(debug=True, host='0.0.0.0', port=5000)
