@@ -1,5 +1,5 @@
 from apiflask import Schema
-from apiflask.fields import Srting, Integer
+from apiflask.fields import String, Integer
 
 
 class StatusOutSchema(Schema):

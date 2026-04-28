@@ -2,7 +2,7 @@ def get_status_data():
     return {
         "status": "ok",
         "message": "Backend работает",
-        "sevice": "backend-service",
+        "service": "backend-service",
         "items_count": 3
     }
 
